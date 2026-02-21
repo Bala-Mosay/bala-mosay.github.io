@@ -397,11 +397,9 @@ import ASeparator from './ASeparator.astro'
 
       @include mq(tablet) {
         padding: 1rem;
-        // align-items: center;
         flex-wrap: wrap;
-        justify-content: center; /* 🔥 FIX */
         text-align: center;
-        justify-content: flex-start;
+        justify-content: center;
 
         font-size: calc(31vw - 1rem);
       }
@@ -431,9 +429,8 @@ import ASeparator from './ASeparator.astro'
         margin: 0 2rem;
 
         @include mq(tablet) {
-          // display: none;
-          margin: 0 0 0 auto;
-          width: 0.375em;
+          margin: 0.5rem auto;
+          width: 3rem;
           height: auto;
         }
       }
