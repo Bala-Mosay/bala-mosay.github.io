@@ -1,33 +1,36 @@
 ---
-const { caption, cssClass, index, site, src, total } = Astro.props
+const { title, description, tags, details, cssClass, index, total } =
+  Astro.props
 
 // A random string with the syntax '[a-z][0-9]{3}-index-total'
 const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
 ---
 
-<a-work class={cssClass}>
+<a-work class={cssClass} data-details={details} data-title={title}>
   <div class="a__inner">
-    <a href={site} target="_blank">
-      <video
-        data-src={src}
-        class="a__video js-video"
-        loop
-        muted
-        playsinline
-        width="1082"
-        height="636"
-      >
-      </video>
+    <a href="#" class="a__card">
+      <div class="a__header">
+        <h3 class="a__title">{title}</h3>
+        <div class="a__key">#{key}</div>
+      </div>
 
-      <div class="a__caption">
-        <div class="a__caption__text">
-          {caption}
-        </div><!-- .a__caption__text -->
+      <p class="a__desc">{description}</p>
 
-        <div class="a__caption__key">
-          #{key}
-        </div><!-- .a__caption__key -->
-      </div><!-- .a__caption -->
+      <div class="a__tags">
+        {
+          tags &&
+            tags.slice(0, 3).map((tag) => <span class="a__tag">{tag}</span>)
+        }
+        {
+          tags && tags.length > 3 && (
+            <span class="a__tag">+{tags.length - 3}</span>
+          )
+        }
+      </div>
+
+      <div class="a__footer">
+        <span class="a__more">View Details &rarr;</span>
+      </div>
     </a>
   </div><!-- .a__inner -->
 </a-work>
@@ -37,20 +40,13 @@ const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
     static observedAttributes = ['progress']
 
     link: HTMLAnchorElement
-    video: HTMLVideoElement
-
-    isPlaying: boolean
 
     /**
      * Init
      */
     connectedCallback() {
       // Elements
-      this.video = this.querySelector('.js-video')
       this.link = this.querySelector('a')
-
-      // Properties
-      this.isPlaying = false
 
       // Events
       this.link.addEventListener('click', this.onClick.bind(this))
@@ -63,50 +59,41 @@ const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
       if (name === 'progress') {
         this.style.setProperty('--progress', newValue)
 
+        // Improve performance by hiding off-screen content
         if (newValue === '1' || newValue === '-1') {
-          if (this.isPlaying) {
-            this.outView()
-          }
+          this.classList.remove('is-inview')
         } else {
-          if (!this.isPlaying) {
-            this.inView()
-          }
+          this.classList.add('is-inview')
         }
       }
-    }
-
-    /**
-     * Gets in view
-     */
-    inView() {
-      this.video.play()
-      this.isPlaying = true
-
-      this.classList.add('is-inview')
-    }
-
-    /**
-     * Gets out view
-     */
-    outView() {
-      this.video.pause()
-      this.isPlaying = false
-
-      this.classList.remove('is-inview')
     }
 
     /**
      * On click
      */
     onClick(event: MouseEvent) {
-      if (this.link.href.includes('#')) {
-        event.preventDefault()
-        return false
+      event.preventDefault()
+
+      const details = this.dataset.details
+      const title = this.dataset.title
+
+      if (details) {
+        this.dispatchEvent(
+          new CustomEvent('open-details', {
+            bubbles: true,
+            detail: {
+              title,
+              details: JSON.parse(details),
+            },
+          }),
+        )
       }
     }
   }
 
-  customElements.define('a-work', AWork)
+  if (!customElements.get('a-work')) {
+    customElements.define('a-work', AWork)
+  }
 </script>
 
 <style lang="scss">
@@ -117,59 +104,144 @@ const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
 
     display: block;
     margin: 0;
-    padding: 0.5rem 0.5rem 0;
+    padding: 0;
 
-    background: color(secondary);
-    content-visibility: hidden;
+    /* Card sizing handled by parent grid layout or fixed here */
+    width: 350px;
+    max-width: 80vw;
+    /* Aspect ratio for consistency */
+    aspect-ratio: 4/3;
+
+    background: transparent;
+    content-visibility: auto;
 
     transform-style: preserve-3d;
-
     will-change: transform;
 
     @include mq(phone) {
-      padding: 0.25rem;
+      width: 280px;
+      aspect-ratio: auto;
+      min-height: 200px;
     }
 
     a {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      width: 100%;
+      height: 100%;
+      padding: 1.5rem;
+
+      /* CHANGED: Dark background with high opacity for readability */
+      background: linear-gradient(
+        145deg,
+        color(secondary, 0.9),
+        color(secondary, 0.95)
+      );
+
+      /* Stronger border */
+      border: 1px solid color(primary, 0.3);
+      border-radius: 12px;
+
+      /* Deep shadow */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 
       text-decoration: none;
+      color: color(primary);
+
+      /* Stronger glass effect */
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      &:hover {
+        /* Slightly visible hover state */
+        background: linear-gradient(
+          145deg,
+          color(secondary, 0.95),
+          color(secondary, 1)
+        );
+        border-color: color(primary, 0.8);
+
+        transform: translateY(-5px) scale(1.02);
+
+        /* Green glow on hover */
+        box-shadow:
+          0 20px 50px rgba(0, 0, 0, 0.9),
+          0 0 20px color(primary, 0.2);
+
+        .a__more {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
     }
 
     .a__inner {
-      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .a__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .a__title {
       margin: 0;
-      padding: 0;
-    }
-
-    .a__video {
-      display: block;
-
-      width: auto;
-      max-width: 50vw;
-      height: auto;
-      max-height: 50vh;
-
-      @include mq(phone) {
-        max-width: 80vw;
-        max-height: 80vh;
-      }
-    }
-
-    .a__caption {
-      @include flex(row, center, space-between);
-
-      padding: 0.5rem 0.5rem;
-
-      color: color(primary);
-      font: 700 11px / 1 font-family(fraktion);
-      letter-spacing: 0.15em;
-      text-align: right;
+      font: 700 1.25rem/1.2 font-family(fraktion);
       text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
 
-      @include mq(phone) {
-        display: none;
-      }
+    .a__key {
+      font: 400 0.75rem/1 font-family(fraktion);
+      opacity: 0.5;
+    }
+
+    .a__desc {
+      margin: 0 0 1.5rem;
+      font: 400 0.9rem/1.5 font-family(editorial); /* Changed to editorial for readability */
+      opacity: 0.8;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .a__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .a__tag {
+      font: 400 0.7rem/1 font-family(fraktion);
+      padding: 0.25rem 0.5rem;
+      border: 1px solid color(primary, 0.2);
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .a__footer {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .a__more {
+      font: 700 0.75rem/1 font-family(fraktion);
+      text-transform: uppercase;
+      opacity: 1; /* Always visible */
+      transform: none; /* No translation */
+      transition:
+        opacity 0.3s,
+        transform 0.3s;
     }
 
     &.is-inview {

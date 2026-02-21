@@ -16,16 +16,17 @@ import '../styles/global.scss'
   <head>
     <meta charset="utf-8" />
 
-    <title>AW 2025 Portfolio – Open Source Edition</title>
+    <title>Bala Mosay J</title>
 
     <meta
       name="description"
-      content="Take a peek behind the scenes of a senior dev’s awarded portfolio. Clone it, learn from it, build your own. But don’t just steal it—the community will call you out, and you’ll doom yourself to eternal mediocrity." />
+      content="Bala Mosay J – AI/ML student passionate about building intelligent systems. Explore my portfolio of machine learning, deep learning, and full-stack projects."
+    />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
 
     <meta name="robots" content="noindex, nofollow" />
-    <link rel="canonical" href="https://public.wodniack.dev/" />
+    <link rel="canonical" href="https://balamosay.github.io/" />
 
     <link
       rel="icon"
@@ -40,7 +41,7 @@ import '../styles/global.scss'
       sizes="180x180"
       href="/icons/apple-touch-icon.png"
     />
-    <meta name="apple-mobile-web-app-title" content="AW Portfolio" />
+    <meta name="apple-mobile-web-app-title" content="Bala Mosay Portfolio" />
 
     <meta name="theme-color" content="#160000" />
     <meta name="msapplication-navbutton-color" content="#160000" />
@@ -48,15 +49,24 @@ import '../styles/global.scss'
 
     <meta property="og:locale" content="en_GB" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Antoine Wodniack 2025 Portfolio – Open Source Edition" />
-    <meta property="og:description" content="Take a peek behind the scenes of a senior dev’s awarded portfolio. Clone it, learn from it, build your own. But don’t just steal it—the community will call you out, and you’ll doom yourself to eternal mediocrity." />
-    <meta property="og:url" content="https://public.wodniack.dev/" />
-    <meta property="og:site_name" content="Antoine Wodniack 2025 Portfolio – Open Source Edition" />
-    <meta property="og:image" content="https://public.wodniack.dev/images/aw-creative-developer.png" />
+    <meta property="og:title" content="Bala Mosay J – Portfolio" />
+    <meta
+      property="og:description"
+      content="Bala Mosay J – AI/ML student passionate about building intelligent systems. Explore my portfolio of machine learning, deep learning, and full-stack projects."
+    />
+    <meta property="og:url" content="https://balamosay.github.io/" />
+    <meta property="og:site_name" content="Bala Mosay J – Portfolio" />
+    <meta
+      property="og:image"
+      content="https://balamosay.github.io/images/aw-creative-developer.png"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="675" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://public.wodniack.dev/images/aw-creative-developer.png" />
+    <meta
+      name="twitter:image"
+      content="https://balamosay.github.io/images/aw-creative-developer.png"
+    />
 
     <link
       rel="preload"
@@ -242,7 +252,7 @@ import '../styles/global.scss'
               entry.target.dispatchEvent(
                 new CustomEvent('intersect', {
                   detail: { isIntersecting: entry.isIntersecting },
-                })
+                }),
               )
 
               if (entry.isIntersecting) {
@@ -250,7 +260,7 @@ import '../styles/global.scss'
                 entry.target.classList.remove(
                   'is-out-of-view',
                   'is-out-of-view-top',
-                  'is-out-of-view-bottom'
+                  'is-out-of-view-bottom',
                 )
               } else {
                 entry.target.classList.remove('is-in-view')
@@ -258,18 +268,18 @@ import '../styles/global.scss'
 
                 entry.target.classList.toggle(
                   'is-out-of-view-top',
-                  entry.boundingClientRect.top < 0
+                  entry.boundingClientRect.top < 0,
                 )
                 entry.target.classList.toggle(
                   'is-out-of-view-bottom',
-                  entry.boundingClientRect.top > 0
+                  entry.boundingClientRect.top > 0,
                 )
               }
             })
           },
           {
             threshold: 0,
-          }
+          },
         )
 
         document.querySelectorAll('[data-intersect]').forEach((el) => {
@@ -421,7 +431,7 @@ import '../styles/global.scss'
             ease: 'power4.inOut',
             stagger: 0.15,
           },
-          0
+          0,
         )
 
         tl.fromTo(
@@ -435,7 +445,7 @@ import '../styles/global.scss'
             ease: 'power4.inOut',
             stagger: 0,
           },
-          1
+          1,
         )
 
         tl.set(logoLinesV, {
@@ -454,7 +464,7 @@ import '../styles/global.scss'
             immediateRender: false,
             stagger: 0.1,
           },
-          2
+          2,
         )
 
         tl.fromTo(
@@ -469,7 +479,7 @@ import '../styles/global.scss'
             immediateRender: false,
             stagger: 0.1,
           },
-          2.1
+          2.1,
         )
 
         tl.from(
@@ -479,7 +489,7 @@ import '../styles/global.scss'
             duration: 3,
             ease: 'power3.inOut',
           },
-          1
+          1,
         )
 
         tl.from(
@@ -489,7 +499,7 @@ import '../styles/global.scss'
             duration: 3,
             ease: 'power3.inOut',
           },
-          1
+          1,
         )
 
         tl.call(
@@ -497,7 +507,7 @@ import '../styles/global.scss'
             document.dispatchEvent(new CustomEvent('intro'))
           },
           null,
-          '-=1.85'
+          '-=1.85',
           // 0.5
         )
 
@@ -513,7 +523,7 @@ import '../styles/global.scss'
             })
           },
           null,
-          5
+          5,
           // 0
         )
       }

@@ -13,7 +13,7 @@ import ASeparator from './ASeparator.astro'
     />
 
     <h1 class="s__title">
-      <span class="s__title__word js-word">Creative</span>
+      <span class="s__title__word js-word">Machine Learning</span>
       <img
         class="s__title__asset js-star"
         src="/images/asset-star.svg"
@@ -21,7 +21,7 @@ import ASeparator from './ASeparator.astro'
         width="48"
         height="48"
       />
-      <span class="s__title__word js-word">Developer</span>
+      <span class="s__title__word js-word">Enginneer</span>
     </h1>
 
     <ASeparator
@@ -384,7 +384,7 @@ import ASeparator from './ASeparator.astro'
 
       cursor: default;
 
-      font: 700 min(15vw, 18.5rem) / 0.8 font-family(bigger);
+      font: 700 min(8vw, 10rem) / 0.8 font-family(bigger);
       text-transform: uppercase;
 
       @include mq(desktop-xs) {
@@ -395,6 +395,8 @@ import ASeparator from './ASeparator.astro'
         padding: 1rem;
         // align-items: center;
         flex-wrap: wrap;
+        justify-content: center;   /* 🔥 FIX */
+        text-align: center; 
         justify-content: flex-start;
 
         font-size: calc(31vw - 1rem);
@@ -408,7 +410,7 @@ import ASeparator from './ASeparator.astro'
         position: relative;
 
         display: block;
-        height: 0.7975em;
+        height: 0.85em;
 
         @include mq(tablet) {
           flex-grow: 0;
@@ -416,7 +418,7 @@ import ASeparator from './ASeparator.astro'
         }
 
         @include mq(phone) {
-          height: 0.825em;
+          height: 0.88em;
         }
       }
 
@@ -480,7 +482,7 @@ import ASeparator from './ASeparator.astro'
 
       :global(.char__inner) {
         position: relative;
-        top: 0.0725em;
+        top: 0.04em;
 
         display: block;
 
@@ -491,7 +493,7 @@ import ASeparator from './ASeparator.astro'
         @at-root {
           :global(.is-windows) &,
           :global(.is-android) & {
-            top: 0.1025em;
+            top: 0.06em;
 
             @include mq(phone) {
               top: 0.105em;

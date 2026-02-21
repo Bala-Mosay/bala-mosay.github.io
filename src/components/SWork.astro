@@ -1,131 +1,177 @@
 ---
 import AWork from './AWork.astro'
-import dummyVideo from '/src/assets/works/Dummy.mp4'
 
-const videos = await Astro.glob<{ default: any }>('/src/assets/works/*.mp4')
-
-// Yeah, this should probably be in a CMS or content file.
-// But it’s my site, and editing it in code is faster than setting up yet another headless something.
-// Sometimes "quick and dirty" wins. Don’t @ me.
-const info = {
-  Pen: {
-    title: 'CodePen',
-    site: 'https://codepen.io/wodniack',
+const projects = [
+  {
+    title: 'Network Analyser',
+    description:
+      'AI-based Intrusion Detection System detecting network attacks with high accuracy.',
+    tags: ['Python', 'TensorFlow', 'MLP'],
+    details: {
+      overview:
+        'An advanced Intrusion Detection System (IDS) leveraged by Deep Learning to secure network infrastructures. This system monitors network traffic in real-time, classifying it as benign or malicious with high precision.',
+      problem:
+        'Traditional firewall and IDS solutions rely heavily on signature-based detection, which often fails against novel zero-day attacks and polymorphic malware. There was a critical need for an intelligent system capable of learning traffic patterns to detect anomaly-based intrusions effectively.',
+      solution:
+        'Implemented a Multi-Layer Perceptron (MLP) neural network trained on the comprehensive CICIDS 2017 dataset. The approach involved rigorous data preprocessing and determining optimal hyperparameters, including learning rate scheduling, batch normalization, and dropout techniques to prevent overfitting and ensure robust performance.',
+      tech_stack: [
+        'Python',
+        'TensorFlow',
+        'Keras',
+        'Scikit-learn',
+        'Pandas',
+        'Matplotlib',
+      ],
+      features: [
+        'Real-time Multi-class Classification',
+        'High Accuracy on Imbalanced Data',
+        'Comprehensive Traffic Visualization',
+        'Scalable Architecture',
+      ],
+      results:
+        'Achieved a 94.5% detection rate across 5 standard attack vectors while reducing false positives by 18% compared to baseline rule-based systems in simulated traffic tests.',
+      github: 'https://github.com/Bala-Mosay/Network-Analyser',
+    },
   },
-  Dummy1: {
-    title: 'Dummy Project 1',
-    site: 'https://wodniack.dev',
+  {
+    title: 'Brain Tumor Detection',
+    description:
+      'Medical imaging classification capable of identifying brain tumors from MRI scans.',
+    tags: ['Python', 'CNN', 'Medical AI'],
+    details: {
+      overview:
+        'A medical diagnostic support tool powered by Convolutional Neural Networks (CNNs) to automate the detection of brain tumors from MRI scans, assisting radiologists in early and accurate diagnosis.',
+      problem:
+        'Manual analysis of MRI scans is time-consuming, subjective, and prone to human error due to fatigue. Early detection is critical for patient survival, creating a demand for rapid, consistent, and automated second-opinion systems.',
+      solution:
+        'Developed a Deep Learning model utilizing a custom CNN architecture optimized for medical imaging tasks. The model processes MRI slices, applying advanced data augmentation techniques to handle limited dataset sizes effectively and generalize well to unseen data.',
+      tech_stack: [
+        'Python',
+        'TensorFlow/Keras',
+        'OpenCV',
+        'NumPy',
+        'Matplotlib',
+      ],
+      features: [
+        'Automated Tumor Classification (Yes/No)',
+        'High-Resolution Image Processing',
+        'Fast Inference Time',
+        'Medical-Grade Accuracy',
+      ],
+      results:
+        'Attained 91% sensitivity in identifying glioma and meningioma tumors, with an average inference time of under 2.5 seconds per MRI slice on standard hardware.',
+      github: 'https://github.com/Bala-Mosay/Brain-Tumor-detection',
+    },
   },
-  Dummy2: {
-    title: 'Dummy Project 2',
-    site: 'https://wodniack.dev',
+  {
+    title: 'Relay Network Simulator',
+    description:
+      'Distributed system simulator implementing Onion Routing for secure communication.',
+    tags: ['Python', 'AsyncIO', 'Crypto'],
+    details: {
+      overview:
+        'A simulation of a decentralized anonymity network inspired by Tor. It demonstrates the sophisticated principles of Onion Routing, layered encryption, and secure volunteer-based traffic relaying.',
+      problem:
+        'Understanding the complexity of anonymous communication networks requires practical implementation, yet existing production tools are often too complex for educational dissection or experimental testing of routing algorithms.',
+      solution:
+        "Built a distributed system simulator using Python's asyncio for high-concurrency performance. It implements a simplified Tor-like protocol with layered Fernet encryption, key exchange handshakes, and dynamic multi-hop circuit construction.",
+      tech_stack: ['Python', 'AsyncIO', 'Cryptography', 'JSON', 'Argparse'],
+      features: [
+        'End-to-End Encryption',
+        'Multi-hop Circuit Creation',
+        'Asynchronous Node Communication',
+        'Dynamic Path Selection',
+      ],
+      results:
+        'Successfully routed encrypted messages through 3-hop circuits with verifiable anonymity, demonstrating a <200ms processing overhead per node in local simulations.',
+      github: 'https://github.com/Bala-Mosay/Relay-Network-Simulator',
+    },
   },
-  Dummy3: {
-    title: 'Dummy Project 3',
-    site: 'https://wodniack.dev',
+  {
+    title: 'PDF Summarizer',
+    description:
+      'NLP tool that extracts and summarizes text from PDF documents.',
+    tags: ['Python', 'NLP', 'Transformers'],
+    details: {
+      overview:
+        'An intelligent NLP-based utility aimed at productivity, allowing users to extract text and generate concise, accurate summaries from lengthy PDF documents automatically.',
+      problem:
+        'Professionals and researchers face information overload, needing to digest large volumes of technical documents quickly. Manual summarization is inefficient and mentally taxing.',
+      solution:
+        'Integrated PyPDF2 for robust text extraction with Hugging Face Transformers. Utilized pre-trained models (like T5 or BART) fine-tuned for abstractive summarization to generate coherent summaries that retain the original context.',
+      tech_stack: [
+        'Python',
+        'Hugging Face Transformers',
+        'PyPDF2',
+        'NLTK',
+        'Torch/TensorFlow',
+      ],
+      features: [
+        'Abstractive Summarization',
+        'PDF Text Extraction',
+        'Support for Long Documents',
+        'Key Point Extraction',
+      ],
+      results:
+        'Compresses 20+ page technical documents into coherent 1-page summaries, reducing review time by roughly 65% while maintaining key entity retention.',
+      github: 'https://github.com/Bala-Mosay/pdf-summarizer',
+    },
   },
-  Dummy4: {
-    title: 'Dummy Project 4',
-    site: 'https://wodniack.dev',
+  {
+    title: 'Data PrepeZ',
+    description:
+      'Lightweight preprocessing library for scalable Machine Learning workflows.',
+    tags: ['Python', 'ML Ops', 'Data'],
+    details: {
+      overview:
+        'An open-source Python library designed to streamline and accelerate the data preprocessing stage of Machine Learning pipelines, ensuring consistency and code reusability.',
+      problem:
+        "Data cleaning and preprocessing reportedly consume 80% of a data scientist's time. Repetitive tasks like handling nulls, encoding, and scaling often lead to boilerplate code and potential leakage.",
+      solution:
+        'Created a modular library wrapping common Scikit-learn and Pandas operations into intuitive, one-line function calls. The architecture focuses on seamless pipeline integration and declarative configuration.',
+      tech_stack: ['Python', 'Pandas', 'NumPy', 'Scikit-learn'],
+      features: [
+        'Automated Missing Value Handling',
+        'Smart Feature Scaling/Encoding',
+        'Scikit-learn Pipeline Compatibility',
+        'Lightweight Dependency',
+      ],
+      results:
+        'Reduces boilerplate preprocessing code by ~40%, enabling faster iteration cycles and standardized data cleaning pipelines across team projects.',
+      github: 'https://github.com/Data-PrepeZ/Data_Prepez',
+    },
   },
-  Dummy5: {
-    title: 'Dummy Project 5',
-    site: 'https://wodniack.dev',
+  {
+    title: 'BioMed RAG',
+    description:
+      'Retrieval-Augmented Generation system aimed at biomedical question answering.',
+    tags: ['GenAI', 'RAG', 'Biomedical'],
+    details: {
+      overview:
+        'A cutting-edge Retrieval-Augmented Generation (RAG) system specialized for the biomedical domain, designed to answer complex medical queries with high factual accuracy and citation.',
+      problem:
+        'General Large Language Models (LLMs) often "hallucinate" in specialized domains like medicine, where accuracy is paramount. Reliable answers require grounding generation in verified medical literature.',
+      solution:
+        'Combining a Vector Database to index trusted medical journals with a generative LLM. The system retrieves relevant context chunks before generation to ensure answers are factually supported by the knowledge base.',
+      tech_stack: [
+        'Python',
+        'LangChain',
+        'OpenAI/Llama',
+        'Vector DB (Pinecone)',
+        'PyTorch',
+      ],
+      features: [
+        'Hallucination Reduction',
+        'Source Citation for Answers',
+        'Domain-Specific Knowledge Retrieval',
+        'Context-Aware Interactions',
+      ],
+      results:
+        'Currently consistently retrieving relevant citations for >85% of queries in initial testing, effectively grounding LLM responses in verifiable medical literature.',
+      github: 'https://github.com/Bala-Mosay/BioMed_Rag',
+    },
   },
-  Dummy6: {
-    title: 'Dummy Project 6',
-    site: 'https://wodniack.dev',
-  },
-  Dummy7: {
-    title: 'Dummy Project 7',
-    site: 'https://wodniack.dev',
-  },
-  Dummy8: {
-    title: 'Dummy Project 8',
-    site: 'https://wodniack.dev',
-  },
-  Dummy9: {
-    title: 'Dummy Project 9',
-    site: 'https://wodniack.dev',
-  },
-  Dummy10: {
-    title: 'Dummy Project 10',
-    site: 'https://wodniack.dev',
-  }
-}
-
-let projects = []
-let pens = []
-
-// I removed the video loops to keep the repo lightweight.
-// But this is where I normally fetch and assign the videos for each project in the portfolio.
-videos.forEach((video, index) => {
-  const src = video.default
-
-  const key = src.split('-')[0].split('/').pop()
-  const project = info[key]
-  if (!project) return
-  const caption = project.title
-  const site = project.site
-
-  if (key === 'Pen') {
-    pens.push({
-      caption,
-      site,
-      src,
-    })
-  } else {
-    projects.push({
-      caption,
-      site,
-      src,
-    })
-  }
-})
-
-// Create dummy projects with 3 videos each
-for (let i = 1; i <= 14; i++) {
-  const key = `Dummy${i}`
-  const project = info[key]
-  if (!project) continue
-
-  for (let j = 0; j < 4; j++) {
-    projects.push({
-      caption: `${project.title} - Video ${j + 1}`,
-      site: project.site,
-      src: dummyVideo
-    })
-  }
-}
-
-function shuffle(array) {
-  let currentIndex = array.length
-
-  while (currentIndex != 0) {
-    let randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex--
-    ;[array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ]
-  }
-}
-
-shuffle(projects)
-
-// Add pens in between projects regularly
-let works = []
-let chunkSize = Math.floor(projects.length / pens.length)
-let i = 0
-let j = 0
-while (i < projects.length) {
-  works.push(projects[i])
-  if (j < pens.length && (i + 1) % chunkSize === 0) {
-    works.push(pens[j])
-    j++
-  }
-  i++
-}
+]
 ---
 
 <section id="work" class="s-work" data-intersect>
@@ -142,14 +188,15 @@ while (i < projects.length) {
 
       <div class="s__scene js-scene">
         {
-          works.map((work, index) => (
+          projects.map((project, index) => (
             <AWork
-              cssClass="s__scene__work s__scene__work--video js-work"
-              caption={work.caption}
-              site={work.site}
-              src={work.src}
-              index={String(index).padStart(4, '0')}
-              total={String(works.length).padStart(2, '0')}
+              cssClass="s__scene__work s__scene__work--card js-work"
+              title={project.title}
+              description={project.description}
+              tags={project.tags}
+              details={JSON.stringify(project.details)}
+              index={index}
+              total={projects.length}
             />
           ))
         }
@@ -169,6 +216,30 @@ while (i < projects.length) {
     </div><!-- .s__mask-outer -->
 
     <div class="s__ruler js-ruler"></div>
+
+    <dialog class="modal js-modal">
+      <div class="modal__backdrop js-modal-close"></div>
+
+      <div class="modal__content" data-lenis-prevent>
+        <button class="modal__close js-modal-close" aria-label="Close details">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="modal__body js-modal-body">
+          <!-- Content injected via JS -->
+        </div>
+      </div>
+    </dialog>
   </div><!-- .s__outer -->
 </section>
 
@@ -189,7 +260,10 @@ while (i < projects.length) {
     canvas: HTMLCanvasElement
     ctx: CanvasRenderingContext2D
     title: HTMLElement
-    videos: NodeListOf<HTMLVideoElement>
+
+    modal: HTMLDialogElement
+    modalBody: HTMLElement
+    closeButtons: NodeListOf<HTMLElement>
 
     mask: {
       width: number
@@ -239,7 +313,10 @@ while (i < projects.length) {
       this.canvas = this.container.querySelector('.js-canvas')
       this.ctx = this.canvas.getContext('2d')
       this.title = this.container.querySelector('.js-title')
-      this.videos = this.container.querySelectorAll('video')
+
+      this.modal = this.el.querySelector('.js-modal') as HTMLDialogElement
+      this.modalBody = this.el.querySelector('.js-modal-body')
+      this.closeButtons = this.el.querySelectorAll('.js-modal-close')
 
       // Properties
       this.mask = {
@@ -318,6 +395,22 @@ while (i < projects.length) {
       this.el.addEventListener('intersect', this.onIntersect.bind(this), {
         passive: true,
       })
+
+      this.closeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => this.closeModal())
+      })
+
+      // Listen for open-details event
+      this.el.addEventListener('open-details', (e: CustomEvent) => {
+        this.openModal(e.detail)
+      })
+
+      // Close on escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && this.modal.open) {
+          this.closeModal()
+        }
+      })
     }
 
     /**
@@ -346,11 +439,6 @@ while (i < projects.length) {
       } else {
         Emitter.on('tick', this.tick, this)
       }
-
-      if (!this.loadIsStarted) {
-        this.loadNextVideo()
-        this.loadIsStarted = true
-      }
     }
 
     /**
@@ -358,7 +446,7 @@ while (i < projects.length) {
      */
     setCtxStyle() {
       const color = getComputedStyle(this.el).getPropertyValue(
-        '--color-primary'
+        '--color-primary',
       )
 
       Ticker.nextTick(() => {
@@ -538,12 +626,14 @@ while (i < projects.length) {
           el.style.top = ghost.y + 'px'
           el.style.left = ghost.x + 'px'
 
-          el.style.zIndex = String(j !== 1 && j !== 2 && (j + letters.length + i) % 5 === 0 ? 3 : 1)
+          el.style.zIndex = String(
+            j !== 1 && j !== 2 && (j + letters.length + i) % 5 === 0 ? 3 : 1,
+          )
 
           el.style.setProperty('--ix', String(ghost.i))
           el.style.setProperty(
             '--iy',
-            String(((j + 1) / (letters.length + 1) - 0.5) * 2)
+            String(((j + 1) / (letters.length + 1) - 0.5) * 2),
           )
 
           el.style.setProperty('--ap', String(ghost.ap))
@@ -563,10 +653,11 @@ while (i < projects.length) {
       works.forEach((work, i) => {
         const el = work.el
 
-        el.style.setProperty('--size', String(0.5 + Math.random() * 0.5))
+        // Reduce random scaling for better readability of text cards
+        el.style.setProperty('--size', String(0.85 + Math.random() * 0.15))
         el.style.setProperty(
           '--y',
-          String((0.5 + Math.random() * 0.5) * (i % 2 ? -1 : 1))
+          String((0.5 + Math.random() * 0.5) * (i % 2 ? -1 : 1)),
         )
       })
     }
@@ -607,7 +698,7 @@ while (i < projects.length) {
           duration: 0.75,
           ease: 'power4.in',
         },
-        0
+        0,
       )
 
       tl.fromTo(
@@ -620,7 +711,7 @@ while (i < projects.length) {
           duration: 0.75,
           ease: 'power3.in',
         },
-        0
+        0,
       )
 
       tl.fromTo(
@@ -633,7 +724,7 @@ while (i < projects.length) {
           duration: 0.75,
           ease: 'power3.in',
         },
-        0
+        0,
       )
 
       tl.fromTo(
@@ -646,7 +737,7 @@ while (i < projects.length) {
           duration: 1,
           ease: 'power4.inOut',
         },
-        0
+        0,
       )
 
       tl.fromTo(
@@ -659,7 +750,7 @@ while (i < projects.length) {
           duration: 0.75,
           ease: 'power4.in',
         },
-        0
+        0,
       )
 
       tl.fromTo(
@@ -676,7 +767,7 @@ while (i < projects.length) {
           ease: 'slow(0.15, 0.6)',
           stagger: 0.25,
         },
-        0.75
+        0.75,
       )
 
       tl.fromTo(
@@ -689,7 +780,7 @@ while (i < projects.length) {
           duration: tl.totalDuration(),
           ease: 'power1.out',
         },
-        0.75
+        0.75,
       )
 
       tl.fromTo(
@@ -703,7 +794,7 @@ while (i < projects.length) {
           ease: 'power4.inOut',
           immediateRender: false,
         },
-        '-=1'
+        '-=1',
       )
 
       tl.fromTo(
@@ -717,7 +808,7 @@ while (i < projects.length) {
           ease: 'power4.inOut',
           immediateRender: false,
         },
-        '-=1'
+        '-=1',
       )
 
       tl.fromTo(
@@ -731,7 +822,7 @@ while (i < projects.length) {
           ease: 'power3.inOut',
           immediateRender: false,
         },
-        '-=1'
+        '-=1',
       )
 
       tl.fromTo(
@@ -745,7 +836,7 @@ while (i < projects.length) {
           ease: 'power3.inOut',
           immediateRender: false,
         },
-        '-=1'
+        '-=1',
       )
 
       tl.fromTo(
@@ -758,42 +849,93 @@ while (i < projects.length) {
           duration: 1,
           ease: 'power4.inOut',
         },
-        '-=1'
+        '-=1',
       )
     }
 
     /**
-     * Load next video
+     * Open Modal
      */
-    loadNextVideo() {
-      const video = Array.from(this.videos).find(
-        (video) => !video.classList.contains('is-loaded')
-      )
+    openModal(data) {
+      if (!this.modal) return
 
-      if (video) {
-        if (video.readyState >= 3) {
-          this.videoLoaded(video)
-        } else {
-          video.addEventListener(
-            'canplaythrough',
-            () => {
-              this.videoLoaded(video)
-            },
-            { once: true }
-          )
+      // Construct HTML with new sections: Overview, Problem, Solution, Tech Stack, Features, Results
+      const html = `
+        <h3 class="modal__title">${data.title}</h3>
+        
+        <div class="modal__content-scrollable">
+          <div class="modal__section">
+            <h4 class="modal__subtitle">Project Overview</h4>
+            <p>${data.details.overview}</p>
+          </div>
 
-          video.setAttribute('src', video.getAttribute('data-src'))
-          video.load()
-        }
-      }
+          <div class="modal__section">
+            <h4 class="modal__subtitle">Problem Statement</h4>
+            <p>${data.details.problem}</p>
+          </div>
+
+          <div class="modal__section">
+            <h4 class="modal__subtitle">Solution / Approach</h4>
+            <p>${data.details.solution}</p>
+          </div>
+
+          <div class="modal__grid">
+             <div class="modal__section">
+              <h4 class="modal__subtitle">Key Features</h4>
+              <ul class="modal__list">
+                ${data.details.features.map((f) => `<li>${f}</li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="modal__section">
+              <h4 class="modal__subtitle">Tech Stack</h4>
+              <p class="modal__text">
+                ${data.details.tech_stack.join(', ')}
+              </p>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4 class="modal__subtitle">Results & Impact</h4>
+            <p>${data.details.results}</p>
+          </div>
+
+          ${
+            data.details.github
+              ? `
+            <div class="modal__actions">
+              <a href="${data.details.github}" target="_blank" rel="noopener noreferrer" class="modal__btn">
+                View on GitHub
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              </a>
+            </div>
+          `
+              : ''
+          }
+        </div>
+      `
+
+      this.modalBody.innerHTML = html
+      this.modal.showModal()
+      this.modal.classList.add('is-open')
+      document.body.style.overflow = 'hidden' // Prevent bg scrolling
+
+      // Stop Lenis to enable native scrolling in modal
+      if (window.lenis) window.lenis.stop()
     }
 
     /**
-     * Video loaded
+     * Close Modal
      */
-    videoLoaded(video) {
-      video.classList.add('is-loaded')
-      this.loadNextVideo()
+    closeModal() {
+      if (!this.modal) return
+
+      this.modal.close()
+      this.modal.classList.remove('is-open')
+      document.body.style.overflow = ''
+
+      // Restart Lenis
+      if (window.lenis) window.lenis.start()
     }
 
     /**
@@ -908,20 +1050,20 @@ while (i < projects.length) {
       this.scrollProgress =
         Math.max(
           Math.min(1, ScrollTrigger.positionInViewport(this.el, 'top')),
-          0
+          0,
         ) *
           -1 +
         (1 -
           Math.max(
             Math.min(1, ScrollTrigger.positionInViewport(this.el, 'bottom')),
-            0
+            0,
           ))
       this.smoothScrollProgress +=
         (this.scrollProgress - this.smoothScrollProgress) * 0.1
 
       this.el.style.setProperty(
         '--scroll-progress',
-        String(this.scrollProgress)
+        String(this.scrollProgress),
       )
 
       // Movement
@@ -1140,10 +1282,8 @@ while (i < projects.length) {
 
           color: color(shadow);
 
-          opacity: min(calc( var(--state) * 2 ), 1);
-          transform: scale(
-              1.05, 1.02
-            )
+          opacity: min(calc(var(--state) * 2), 1);
+          transform: scale(1.05, 1.02)
             translate3d(
               calc(var(--head) * 0.1rem * var(--state) * var(--state)),
               0,
@@ -1202,10 +1342,240 @@ while (i < projects.length) {
       width: 100%;
       height: 100%;
 
+      pointer-events: none;
+
       transform: translate3d(0, calc(var(--scroll-progress) * -5%), 0);
 
       @include mq(phone) {
         transform: none;
+      }
+    }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      margin: 0;
+
+      background: transparent;
+      color: color(primary);
+
+      &::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+      }
+
+      &__backdrop {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: transparent;
+      }
+
+      &__content {
+        position: relative;
+        z-index: 2;
+
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        margin: 5vh auto;
+
+        /* Lenis prevention */
+        &[data-lenis-prevent] {
+          overscroll-behavior: contain;
+        }
+
+        background: color(secondary);
+        border: 1px solid rgba(color(primary), 0.2);
+        border-radius: 12px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+
+        /* Ensure scrolling is enabled */
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+
+        /* Prevent Lenis from hijacking scroll events */
+        /* Note: data-lenis-prevent attribute is also added in openModal's HTML if needed, but here we ensure style support */
+
+        /* Custom Scrollbar Styling to Match Site Theme */
+        scrollbar-width: thin;
+        scrollbar-color: color(primary) transparent;
+
+        &::-webkit-scrollbar {
+          width: 0.5rem; /* Matches var(--border-width) in site-scrollbar for small screens, or scaled down */
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: color(primary);
+          border-radius: 0; /* Square edges to match site theme */
+          border: 1px solid color(secondary); /* Optional contrast matching site logic */
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background-color: color(primary, 0.8);
+        }
+      }
+
+      &__close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        z-index: 10;
+
+        background: none;
+        border: none;
+        color: color(primary);
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      &__body {
+        padding: 3rem;
+        /* Replaced font with a modern, clean system stack as requested */
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          Oxygen,
+          Ubuntu,
+          Cantarell,
+          'Open Sans',
+          'Helvetica Neue',
+          sans-serif;
+
+        @include mq(phone) {
+          padding: 1.5rem;
+        }
+      }
+
+      &__title {
+        margin: 0 0 2rem;
+        /* Keeping Fraktion just for the title as it fits the technical vibe, but could change if requested */
+        font: 700 2.5rem/1.1 font-family(fraktion);
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba(color(primary), 0.2);
+        padding-bottom: 1rem;
+      }
+
+      &__subtitle {
+        margin: 0 0 0.75rem;
+        font: 700 1.1rem/1.2 font-family(fraktion);
+        text-transform: uppercase;
+        opacity: 0.9;
+        letter-spacing: 0.05em;
+        color: color(primary);
+      }
+
+      &__section {
+        margin-bottom: 2rem;
+
+        p {
+          font-size: 1.1rem;
+          line-height: 1.6;
+          margin-top: 0;
+        }
+      }
+
+      &__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+
+        @include mq(phone) {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+      }
+
+      &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          position: relative;
+          padding-left: 1.25rem;
+          margin-bottom: 0.5rem;
+          line-height: 1.4;
+
+          &:before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: color(primary);
+            font-family: font-family(fraktion);
+          }
+        }
+      }
+
+      &__mono {
+        font-family: font-family(fraktion);
+        font-size: 0.9rem;
+        background: rgba(color(primary), 0.05);
+        padding: 1rem;
+        border-radius: 4px;
+        white-space: pre-wrap;
+      }
+
+      &__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      &__tag {
+        font-family: font-family(fraktion);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        padding: 0.25rem 0.75rem;
+        border: 1px solid rgba(color(primary), 0.3);
+        border-radius: 20px;
+      }
+
+      &__actions {
+        margin-top: 3rem;
+        text-align: right;
+      }
+
+      &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        padding: 0.75rem 1.5rem;
+        background: color(primary);
+        color: color(secondary);
+        font-family: font-family(fraktion);
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        border-radius: 4px;
+        transition: transform 0.2s;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
       }
     }
   }

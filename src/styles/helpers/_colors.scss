@@ -6,15 +6,25 @@
 
 /* Get a color value */
 @function color($key, $alpha: 1) {
-  @if $alpha != 1 {
-    $value: map.get($theme-colors, $key);
-    $alias: map.get($theme-colors, $value);
-    $color: if($alias, $alias, $value);
+  // Access the 'default' map nested inside $theme-colors
+  $theme-default: map.get($theme-colors, default);
 
-    @return rgba($color, $alpha);
-  } @else {
-    @if $key == 'gradient' {
-      @return map.get($theme-colors, $key);
+  @if $alpha !=1 {
+    // Get the color value from the default theme
+    $value: map.get($theme-default, $key);
+
+    @if $value {
+      @return rgba($value, $alpha);
+    }
+
+    @else {
+      @error "Color '#{$key}' not found in theme colors.";
+    }
+  }
+
+  @else {
+    @if $key =='gradient' {
+      @return map.get($theme-default, $key);
     }
 
     @return var(--color-#{$key});
