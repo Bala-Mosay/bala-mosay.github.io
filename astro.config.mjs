@@ -7,7 +7,8 @@ const __dirname = dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://balamosay.github.io',
+  site: 'https://bala-mosay.github.io',
+  base: '/BalaMosay.github.io',
 
   scopedStyleStrategy: 'class',
 
